@@ -168,6 +168,7 @@ int main()
         printf("\t\t\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\n");
         printf("\n \t\t Today is: ");
         tm();
+        label:
         printf("\n\t\t Please Enter Your Choice: ");
         scanf("%d", &opt);
         fgetc(stdin);
@@ -266,13 +267,13 @@ int main()
             break;
 
         case 4:
-            printf("\n\t\t Code ends\n\n");
-            exit(0);
+            endingscreen();
+            exit;
             break;
 
         default:
             printf("Sorry invalid option");
-            break;
+            goto label;
         }
         printf("\n<Enter any key to continue>");
         getch();
