@@ -6,6 +6,21 @@
 #include <conio.h>
 #include <windows.h>
 
+void log()
+{
+    FILE *log;
+    log = fopen("log.txt", "a+");
+
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    fprintf(log, "%s", asctime(timeinfo));
+    fclose(log);
+}
+
 void delayy(int milliseconds)
 {
     Sleep(milliseconds);
@@ -171,6 +186,7 @@ int main()
     char name[50];
     FILE *fp;
     pass();
+    log();
     while (contFlag == 'y')
     {
         system("cls");
