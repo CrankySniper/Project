@@ -61,6 +61,36 @@ void endingscreen()
     clearScreen();
     setConsoleColor(15, 0); 
 }
+
+void generateMenu()
+{
+    printf("\t\t Welcome to Swaad Restaurant\n");
+    printf("-----------\n");
+    printf("Appetizers:\n");
+    printf("-----------\n\n");
+    printf("1. Vegetable Samosa - Rs 5.99\n");
+    printf("2. Paneer Tikka - Rs 7.99\n");
+    printf("3. Chicken Tikka - Rs 8.99\n");
+    printf("4. Tandoori Shrimp - Rs 10.99\n");
+    printf("5. Aloo Chaat - Rs 6.99\n\n");
+    printf("--------------------------\n");
+    printf("Main Courses - Vegetarian:\n");
+    printf("--------------------------\n\n");
+    printf("6. Vegetable Biryani - Rs 12.99\n");
+    printf("7. Paneer Butter Masala - Rs 14.99\n");
+    printf("8. Chana Masala - Rs 11.99\n");
+    printf("9. Baingan Bharta - Rs 12.99\n");
+    printf("10. Malai Kofta - Rs 13.99\n\n");
+    printf("------------------------------\n");
+    printf("Main Courses - Non-Vegetarian:\n");
+    printf("------------------------------\n\n");
+    printf("11. Chicken Curry - Rs 14.99\n");
+    printf("12. Lamb Rogan Josh - Rs 16.99\n");
+    printf("13. Butter Chicken - Rs 15.99\n");
+    printf("14. Goan Fish Curry - Rs 17.99\n");
+    printf("15. Tandoori Mixed Grill - Rs 19.99\n");
+}
+
 struct items
 {
     char item[20];
@@ -168,7 +198,7 @@ int main()
         printf("\t\t\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\n");
         printf("\n \t\t Today is: ");
         tm();
-        label:
+        label1:
         printf("\n\t\t Please Enter Your Choice: ");
         scanf("%d", &opt);
         fgetc(stdin);
@@ -180,21 +210,100 @@ int main()
             fgets(ord.customer, 50, stdin);
             ord.customer[strlen(ord.customer) - 1] = 0;
             strcpy(ord.date, __DATE__);
-            printf("\nPlease enter the number of items:\t");
-            scanf("%d", &n);
-            ord.numOfItems = n;
-            for (int i = 0; i < n; i++)
+
+            generateMenu();
+            int i = 0,price,n1;
+            while (1)
             {
-                fgetc(stdin);
+                int choice;
+                // fgetc(stdin);
                 printf("\n\n");
-                printf("Please enter the item %d:\t", i + 1);
-                fgets(ord.itm[i].item, 20, stdin);
-                ord.itm[i].item[strlen(ord.itm[i].item) - 1] = 0;
-                printf("Please enter the quantity:\t");
-                scanf("%d", &ord.itm[i].qty);
-                printf("Please enter the unit price:\t");
-                scanf("%f", &ord.itm[i].price);
-                total += ord.itm[i].qty * ord.itm[i].price;
+            label:
+                printf("Please enter the item no. and quantity :");
+                scanf("%d %d", &choice, &n1);
+                char item[50];
+                switch (choice)
+                {
+                case 1:
+                    strcpy(item, "Vegetable Samosa");
+                    price = 5.99 * n1;
+                    break;
+                case 2:
+                    strcpy(item, "Paneer Tikka");
+                    price = 7.99 * n1;
+                    break;
+                case 3:
+                    strcpy(item, "Chicken Tikka");
+                    price = 8.99 * n1;
+                    break;
+                case 4:
+                    strcpy(item, "Tandoori Shrimp");
+                    price = 10.99 * n1;
+                    break;
+                case 5:
+                    strcpy(item, "Aloo Chaat");
+                    price = 6.99 * n1;
+                    break;
+                case 6:
+                    strcpy(item, "Vegetable Biryani");
+                    price = 12.99 * n1;
+                    break;
+                case 7:
+                    strcpy(item, "Paneer Butter Masala");
+                    price = 14.99 * n1;
+                    break;
+                case 8:
+                    strcpy(item, "Chana Masala");
+                    price = 14.99 * n1;
+                    break;
+                case 9:
+                    strcpy(item, "Baingan Bharta");
+                    price = 11.99 * n1;
+                    break;
+                case 10:
+                    strcpy(item, "Malai Kofta");
+                    price = 12.99 * n1;
+                    break;
+                case 11:
+                    strcpy(item, "Chicken Curry");
+                    price = 13.99 * n1;
+                    break;
+                case 12:
+                    strcpy(item, "Lamb Rogan Josh");
+                    price = 14.99 * n1;
+                    break;
+                case 13:
+                    strcpy(item, "Butter Chicken");
+                    price = 15.99 * n1;
+                    break;
+                case 14:
+                    strcpy(item, "Goan Fish Curry");
+                    price = 17.99 * n1;
+                    break;
+                case 15:
+                    strcpy(item, "Tandoori Mixed Grill");
+                    price = 19.99 * n1;
+                    break;
+
+                default:
+                    goto label;
+                    break;
+                }
+
+                fgetc(stdin);
+                strcpy(ord.itm[i].item, item);
+                ord.itm[i].qty = n1;
+                ord.itm[i].price = price;
+                total += price * n1;
+                char ch;
+                printf("Add more (y/n): ");
+                scanf(" %c", &ch);
+                if (ch == 'n')
+                {
+                    ord.numOfItems = i + 1;
+                    break;
+                }
+                i++;
             }
             system("cls");
             generateBillHeader(ord.customer, ord.date);
@@ -273,7 +382,7 @@ int main()
 
         default:
             printf("Sorry invalid option");
-            goto label;
+            goto label1;
         }
         printf("\n<Enter any key to continue>");
         getch();
