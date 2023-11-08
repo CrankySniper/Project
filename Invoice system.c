@@ -6,7 +6,7 @@
 #include <conio.h>
 #include <windows.h>
 
-void log()
+void tlog()
 {
     FILE *log;
     log = fopen("log.txt", "a+");
@@ -39,13 +39,13 @@ void setConsoleColor(int text, int background)
 void scrollText(const char *text, int speed)
 {
     int textLength = strlen(text);
-    int screenWidth = 150; 
+    int screenWidth = 150;
     int padding = 0;
 
     while (padding < screenWidth + textLength)
     {
         clearScreen();
-        setConsoleColor(14, 0); 
+        setConsoleColor(14, 0);
         printf("\n\n");
 
         for (int j = 0; j < screenWidth; j++)
@@ -74,7 +74,7 @@ void endingscreen()
     scrollText("                                                                                                            PDS Project - Thank You!", 50);
     getch();
     clearScreen();
-    setConsoleColor(15, 0); 
+    setConsoleColor(15, 0);
 }
 
 void generateMenu()
@@ -122,6 +122,7 @@ struct orders
 };
 
 int pass(void);
+
 int tm()
 {
     time_t mytime;
@@ -129,13 +130,14 @@ int tm()
     printf(ctime(&mytime));
     return 0;
 }
+
 int delay(unsigned int mseconds)
 {
     clock_t goal = mseconds + clock();
     while (goal > clock())
         ;
 }
-// functions to generate biils
+
 void generateBillHeader(char name[50], char date[30])
 {
     printf("\n\n");
@@ -153,6 +155,7 @@ void generateBillHeader(char name[50], char date[30])
     printf("\n---------------------------------------");
     printf("\n\n");
 }
+
 void generateBillBody(char item[30], int qty, float price)
 {
     printf("%s\t\t", item);
@@ -160,6 +163,7 @@ void generateBillBody(char item[30], int qty, float price)
     printf("%.2f\t\t", qty * price);
     printf("\n");
 }
+
 void generateBillFooter(float total)
 {
     printf("\n");
@@ -177,6 +181,7 @@ void generateBillFooter(float total)
     printf("\nGrand Total\t\t\t%.2f", grandTotal);
     printf("\n---------------------------------------\n");
 }
+
 int main()
 {
     int opt, n;
@@ -186,7 +191,7 @@ int main()
     char name[50];
     FILE *fp;
     pass();
-    log();
+    tlog();
     while (contFlag == 'y')
     {
         system("cls");
@@ -214,7 +219,7 @@ int main()
         printf("\t\t\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\xDB\n");
         printf("\n \t\t Today is: ");
         tm();
-        label1:
+    label1:
         printf("\n\t\t Please Enter Your Choice: ");
         scanf("%d", &opt);
         fgetc(stdin);
@@ -228,7 +233,7 @@ int main()
             strcpy(ord.date, __DATE__);
 
             generateMenu();
-            int i = 0,price,n1;
+            int i = 0, price, n1;
             while (1)
             {
                 int choice;
@@ -409,6 +414,7 @@ int main()
     endingscreen();
     printf("\n\n");
 }
+
 int pass(void)
 {
     int a = 0, i = 0;
