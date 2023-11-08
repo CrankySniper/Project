@@ -6,6 +6,61 @@
 #include <conio.h>
 #include <windows.h>
 
+void delayy(int milliseconds)
+{
+    Sleep(milliseconds);
+}
+
+void clearScreen()
+{
+    system("cls");
+}
+
+void setConsoleColor(int text, int background)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (background << 4));
+}
+
+void scrollText(const char *text, int speed)
+{
+    int textLength = strlen(text);
+    int screenWidth = 150; 
+    int padding = 0;
+
+    while (padding < screenWidth + textLength)
+    {
+        clearScreen();
+        setConsoleColor(14, 0); 
+        printf("\n\n");
+
+        for (int j = 0; j < screenWidth; j++)
+        {
+            if (j + padding < textLength)
+            {
+                printf("%c", text[j + padding]);
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
+
+        setConsoleColor(15, 7);
+
+        delayy(speed);
+        padding++;
+        padding = (padding == (screenWidth + textLength - 1)) ? 0 : padding;
+    }
+}
+
+void endingscreen()
+{
+    clearScreen();
+    scrollText("                                                                                                            PDS Project - Thank You!", 50);
+    getch();
+    clearScreen();
+    setConsoleColor(15, 0); 
+}
 struct items
 {
     char item[20];
@@ -225,7 +280,7 @@ int main()
         printf("\nDo you want to perform another operation? [y/n]");
         scanf("%s", &contFlag);
     }
-    printf("\n\t\t Code ends\n\n");
+    endingscreen();
     printf("\n\n");
 }
 int pass(void)
