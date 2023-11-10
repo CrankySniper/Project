@@ -402,8 +402,8 @@ int main()
     int sn = 1;
 
     char c;
-    tlog();
     pass();
+    tlog();
     while (contFlag == 'y')
     {
         system("cls");
