@@ -402,7 +402,7 @@ int main()
     int sn = 1;
 
     char c;
-
+    tlog();
     pass();
     while (contFlag == 'y')
     {
